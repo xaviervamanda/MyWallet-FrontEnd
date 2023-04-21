@@ -1,18 +1,49 @@
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import MyWalletLogo from "../components/MyWalletLogo"
+import { useContext} from "react"
+import axios from "axios"
+import UserContext from "../contexts/UserContext"
 
 export default function SignInPage() {
-  return (
+
+  const {setToken, url, setEmail, 
+    setPassword, email, password} = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  function handleForm (e){
+    e.preventDefault();
+    axios.post(`${url}/login`, {email, password})
+      .then(res => {
+        localStorage.setItem("token", res.data.token);
+        setToken(localStorage.getItem("token"));
+        navigate("/home");
+      })
+      .catch(err => {
+        if (err.response.status === 422) return window.alert("O email deve ter um formato válido");
+        if (err.response.status === 404) return window.alert("O email inserido não foi cadastrado. Faça o cadastro.");
+        if (err.response.status === 401) return window.alert("A senha inserida está incorreta.");
+      })
+  }
+    return (
     <SingInContainer>
-      <form>
+      <form onSubmit={handleForm}>
         <MyWalletLogo />
-        <input placeholder="E-mail" type="email" />
-        <input placeholder="Senha" type="password" autocomplete="new-password" />
+        <input
+        onChange={e => setEmail(e.target.value)}
+        placeholder="E-mail" 
+        type="email"
+        required />
+        <input
+        onChange={e => setPassword(e.target.value)}
+        placeholder="Senha" 
+        type="password" 
+        required />
         <button>Entrar</button>
       </form>
 
-      <Link>
+      <Link to={"/cadastro"}>
         Primeira vez? Cadastre-se!
       </Link>
     </SingInContainer>

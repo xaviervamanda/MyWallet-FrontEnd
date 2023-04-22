@@ -13,13 +13,15 @@ export default function App() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [token, setToken] = useState("");
+  const [description, setDescription] = useState("");
+  const [value, setValue] = useState(0);
   const url = process.env.REACT_APP_API_URL;
 
   return (
     <PagesContainer>
       <UserContext.Provider value={{email, setEmail, 
       name, setName, password, setPassword,
-      token, setToken, url}}>
+      token, setToken, url, description, setDescription, value, setValue}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<SignInPage />} />

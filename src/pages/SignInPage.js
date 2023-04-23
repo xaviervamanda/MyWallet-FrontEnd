@@ -7,7 +7,7 @@ import UserContext from "../contexts/UserContext"
 
 export default function SignInPage() {
 
-  const {setToken, url, setEmail, 
+  const {url, setEmail, 
     setPassword, email, password} = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function SignInPage() {
     axios.post(`${url}/login`, {email, password})
       .then(res => {
         localStorage.setItem("token", res.data.token);
-        setToken(localStorage.getItem("token"));
+        localStorage.setItem("name", res.data.name)
         navigate("/home");
       })
       .catch(err => {

@@ -6,12 +6,14 @@ import axios from "axios";
 
 export default function TransactionsPage() {
 
-  const {setDescription, setValue, token, value, description, url} = useContext(UserContext);
+  const {setDescription, setValue, value, description, url} = useContext(UserContext);
   const {tipo: type} = useParams();
   const navigate = useNavigate();
 
   function saveTransaction(e, type){
     e.preventDefault();
+    console.log(type)
+    const token = localStorage.getItem("token");
     if (type === "entrada"){
       axios.post(`${url}/transaction/incoming`, { value, description}, {headers: {Authorization: `Bearer ${token}`}})
         .then(() => navigate("/home"))

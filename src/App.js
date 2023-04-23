@@ -12,7 +12,6 @@ export default function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [token, setToken] = useState("");
   const [description, setDescription] = useState("");
   const [value, setValue] = useState(0);
   const url = process.env.REACT_APP_API_URL;
@@ -20,8 +19,8 @@ export default function App() {
   return (
     <PagesContainer>
       <UserContext.Provider value={{email, setEmail, 
-      name, setName, password, setPassword,
-      token, setToken, url, description, setDescription, value, setValue}}>
+      name, setName, password, setPassword, url,
+      description, setDescription, value, setValue}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<SignInPage />} />

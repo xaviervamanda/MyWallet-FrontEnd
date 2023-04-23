@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 import UserContext from "../contexts/UserContext";
@@ -10,10 +10,16 @@ export default function TransactionsPage() {
   const {tipo: type} = useParams();
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+  
+  useEffect(() => {
+    if (!token){
+      navigate("/");
+    }
+  }, [])
+
   function saveTransaction(e, type){
     e.preventDefault();
-    console.log(type)
-    const token = localStorage.getItem("token");
     if (type === "entrada"){
       axios.post(`${url}/transaction/incoming`, { value, description}, {headers: {Authorization: `Bearer ${token}`}})
         .then(() => navigate("/home"))

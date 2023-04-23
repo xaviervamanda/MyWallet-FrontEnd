@@ -15,7 +15,6 @@ export default function HomePage() {
   const [incomings, setIncomings] = useState(0);
   const [outgoings, setOutgoings] = useState(0);
   const navigate = useNavigate();
-  let name = "";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -27,7 +26,7 @@ export default function HomePage() {
         let incomings = 0;
         let outgoings = 0;
         res.data.forEach((t) => {
-          t.value = Number(t.value).toFixed(2);
+          t.value = Number(t.value);
           if (t.type === "incoming") {
             incomings += t.value;
           } else {
@@ -54,11 +53,17 @@ export default function HomePage() {
     navigate(`/nova-transacao/${type}`);
   }
 
+  function logout(){
+    localStorage.removeItem("token");
+    localStorage.removeItem("name");
+    navigate("/");
+  }
+
   return (
     <HomeContainer>
       <Header>
         <h1>Olá, {localStorage.getItem("name")}</h1>
-        <BiExit />
+        <BiExit onClick={logout}/>
       </Header>
 
       <TransactionsContainer>

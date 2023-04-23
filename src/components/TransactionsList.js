@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 export default function TransactionsList ({transactionsInfos}){
 
-    transactionsInfos = transactionsInfos.reverse();
+    const reversedTransactionsInfos = [...transactionsInfos].reverse();
 
     return (
         <>  
-            {transactionsInfos.map((t, index) => (
+            {reversedTransactionsInfos.map((t, index) => (
                 <ListItemContainer key={index}>
                     <div>
                     <span>{t.date}</span>

@@ -181,10 +181,13 @@ const Value = styled.div`
   color: ${(props) => (props.color === "positivo" ? "green" : "red")};
 `
 const LoadingGif = styled.div`
-    width: 100px;
-    height: 100px;
+    width: 100vw;
+    height: 100vh;
     margin: 0 auto;
     margin-top: 200px;
+    display: flex;
+    justify-content: center;
+    align-itens: center;
     img{
         width: 50px;
         height: 50px;

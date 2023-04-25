@@ -9,10 +9,11 @@ export default function TransactionsList ({transactionsInfos}){
             {reversedTransactionsInfos.map((t, index) => (
                 <ListItemContainer key={index}>
                     <div>
-                    <span>{t.date}</span>
-                    <strong>{t.description}</strong>
+                      <span>{t.date}</span>
+                      <strong>{t.description}</strong>
                     </div>
                     <Value color={t.type === "outgoing" ? "negativo" : "positivo"}>{Number(t.value).toFixed(2)}</Value>
+                    
                 </ListItemContainer>
 
             ))}
@@ -22,8 +23,8 @@ export default function TransactionsList ({transactionsInfos}){
 
 const ListItemContainer = styled.li`
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 8px;
   color: #000000;
   margin-right: 10px;
@@ -35,5 +36,6 @@ const ListItemContainer = styled.li`
 const Value = styled.div`
   font-size: 16px;
   text-align: right;
+  margin-left: 70px;
   color: ${(props) => (props.color === "positivo" ? "green" : "red")};
 `
